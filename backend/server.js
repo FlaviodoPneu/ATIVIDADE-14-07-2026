@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const app = express();
 app.use(express.json());
@@ -9,6 +10,8 @@ app.use(cors());
 const SECRET = "senac2026";
 
 const usuario = { email: "admin@senac.com", senha: "123456" };
+
+const arquivo = "produtos.json"; 
 
 let alunos = [{ id: 1, nome: "João" }];
 
@@ -48,6 +51,12 @@ app.delete('/alunos/:id',autenticar,(req,res)=>{
  const id=parseInt(req.params.id);
  alunos=alunos.filter(a=>a.id!==id);
  res.json({mensagem:'Aluno removido'});
+});
+
+app.get("/produtos", (req, res) => {
+ const dados = fs.readFileSync(arquivo);
+ const produtos = JSON.parse(dados);
+ res.json(produtos);
 });
 
 app.listen(3000,()=>console.log('Servidor na porta 3000'));
