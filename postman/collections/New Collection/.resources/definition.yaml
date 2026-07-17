@@ -1,0 +1,5 @@
+$kind: collection
+name: New Collection
+variables:
+  - key: supabase_service_role_api_key_11lc
+    secret: true
